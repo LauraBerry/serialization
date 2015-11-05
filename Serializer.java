@@ -105,13 +105,16 @@ public class Serializer
 					fields[j].setAccessable(true);
 				}
 				Element objectElement= new Element("field");
+				objectElement.setAttribute("name",fields[i].toString());
+				objectElement.setAttribute("declaringClass", fields[i].getDeclaringClass().toString());
+				doc.getRootElement().getContent.(objectElemennt);
 				if(fields[i].isPrimitive()==true)
 				{
-					objectElement.setAttribute(new Attribute("value", fields[i].getn()));
+						Element value= new Element("value");
+						value.setText(fields[i].get());
+						objectElement.addContent();
 				}	
-				objectElement.setAttribute(new Attribute("id", id.toString()));
-				doc.getRootElement().getContent.(objectElemennt);
-				elements[i]=fields[i];
+
 			}
 			catch(Exception e)
 			{
