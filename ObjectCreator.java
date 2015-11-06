@@ -8,8 +8,7 @@ public class ObjectCreator
 	
 	public Object CreateObject()
 	{
-		//textbased menu and user input
-		System.out.println("what would youlike to do?\n 1)create a simple object\n 2)create a collection of Objects");
+		System.out.println("what would youlike to do?\n 1)create a simple object\n 2)create a collection of Objects\n 3) disconnect");
 		String userInput=darkly.nextLine();
 		Object object = null;
 		if(userInput.toInteger()==1)
@@ -21,8 +20,11 @@ public class ObjectCreator
 			object=createObjectCollectionObject();
 			break;
 		}
-		Sender.connected=false;
-		break;
+		else if (userInput.toInteger()==3)
+		{
+			Sender.connected=false;
+			break;
+		}
 		return object;
 	}
 	
@@ -35,14 +37,15 @@ public class ObjectCreator
 		return SimpleObject(a,b);
 	}
 	
-	private ObjectCollectionObject create ObjectsCollectionObject()
+	private ObjectCollectionObject create ObjectsCollectionObject(Object object)
 	{
-		Vector<object> list = new Vector<object>();
-		int collectionSize=GUI.getIntInput(......);
 		
+		System.out.println("how large would you like the collection of objects to be?");
+		int collectionSize= darkly.nextLine().toInteger();
+		Object[] list = new Object[collectionSize];
 		for (int i=0; i< collectionSize; i++)
 		{
-			list.add(createObject());
+			list[i]=createObject();
 		}
 		return new ObjectsCollectionObject(list);
 	}
