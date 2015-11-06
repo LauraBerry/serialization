@@ -2,6 +2,7 @@ import java.util.*;
 
 public class ObjectCreator
 {
+	Scanner darkly = new Scanner(System.in);
 	public ObjectCreator()
 	{}
 	
@@ -9,7 +10,6 @@ public class ObjectCreator
 	{
 		//textbased menu and user input
 		System.out.println("what would youlike to do?\n 1)create a simple object\n 2)create a collection of Objects");
-		Scanner darkly = new Scanner(System.in);
 		String userInput=darkly.nextLine();
 		Object object = null;
 		if(userInput.toInteger()==1)
@@ -29,7 +29,9 @@ public class ObjectCreator
 	private simpleObject createSimpleObject()
 	{
 		System.out.println("enter value for field")
-		
+		int a=darkly.nextLine().toInteger();
+		System.out.println("enter a value for ___");
+		int b = darkly.nextLine().toInteger();
 		return SimpleObject(a,b);
 	}
 	
