@@ -2,50 +2,46 @@ import java.util.*;
 
 public class ObjectCreator
 {
-	Scanner darkly = new Scanner(System.in);
 	public ObjectCreator()
 	{}
 	
 	public Object CreateObject()
 	{
-		System.out.println("what would youlike to do?\n 1)create a simple object\n 2)create a collection of Objects\n 3) disconnect");
-		String userInput=darkly.nextLine();
+		//textbased menu and user input
 		Object object = null;
-		if(userInput.toInteger()==1)
+		switch(selection)
 		{
-			object= createSimpleObject();
-		}
-		else if (userInput.toInteger()==2)
-		{
-			object=createObjectCollectionObject();
-			break;
-		}
-		else if (userInput.toInteger()==3)
-		{
-			Sender.connected=false;
-			break;
+			case 0;
+				Sender.connected=false;
+				break;
+			case 1;
+				object= createSimpleObject();
+			case 2;
+			case 3;
+			case 4;
+			case 5;
+				object=createObjectCollectionObject();
+				break;
 		}
 		return object;
 	}
 	
 	private simpleObject createSimpleObject()
 	{
-		System.out.println("enter value for field")
-		int a=darkly.nextLine().toInteger();
-		System.out.println("enter a value for ___");
-		int b = darkly.nextLine().toInteger();
+		int a = GUI.getIntInpur ("enter value for field \a" a"\")
+		int b= .......................;
+		
 		return SimpleObject(a,b);
 	}
 	
-	private ObjectCollectionObject create ObjectsCollectionObject(Object object)
+	private ObjectCollectionObject create ObjectsCollectionObject()
 	{
+		Vector<object> list = new Vector<object>();
+		int collectionSize=GUI.getIntInput(......);
 		
-		System.out.println("how large would you like the collection of objects to be?");
-		int collectionSize= darkly.nextLine().toInteger();
-		Object[] list = new Object[collectionSize];
 		for (int i=0; i< collectionSize; i++)
 		{
-			list[i]=createObject();
+			list.add(createObject());
 		}
 		return new ObjectsCollectionObject(list);
 	}
