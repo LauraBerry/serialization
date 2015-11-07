@@ -13,13 +13,15 @@ public class Serializer
 	
 	
 	private int currentElement=0;
-	private Object[] serializedObjects;
+	private ArrayList<object> serializedObjects = new ArrayList<Object>();
+	
 	public Serializer()
 	{		
 	}
 
-	public Document serialize(Object object)
+	public Document serialize(String given, Class c)
 	{
+		Object object= c.getInstance();
 		if(object==null)
 		{
 			
@@ -35,21 +37,21 @@ public class Serializer
 				doc.setRootElement(root);
 			}
 			
-			Class c = object.getClass();
+			Class<?> c = object.getClass();
 			integer id = getID(object);
 			
 			Element objectElement= new Element("object");
 			objectElement.setAttribute(new Attribute("class", c.getname()));
 			objectElement.setAttribute(new Attribute("id", id.toString()));
-			doc.getRootElement().getContent.(objectElemennt);
+			doc.getRootElement().getContent.(objectElement);
+			
 			if(c.isArray())
 			{
 				Object array = object;
 				objectElement.setAttribute(new Attribute("length", Integer.toString(Array.getLength(array))));
 				if(c.getComponentType().isPrimitive()==true)
 				{
-					for(int j=0; j<Array.getLength(array); j++)
-					{
+					for(int j=0; j<Array.getLength(array); j++
 						Element value= new Element("value");
 						value.setText();
 						objectElement.addContent();
@@ -77,14 +79,14 @@ public class Serializer
 			}
 			else
 			{
-				Class tmpClass = c; 
+				Class<?> tmpClass = c; 
 				while (tmpClas != null)
 				{
 					Field[] fields= tmpClass.getDeclaredFields();
-					Element[] fieldXML= serializeFields(fields, object);
-					for(int i=0; i<fieldXML.length(); i++)
+					ArrayList <Element> fieldXML= serializeFields(fields, object);
+					for(Element eleemnt:fieldXML)
 					{
-						objectElement.addContent(fieldXML[i]);
+						objectElement.addContent(element);
 					}
 					tmpClass= tmpClass.getSuperClass();
 				}
@@ -93,9 +95,9 @@ public class Serializer
 		return doc;
 	}
 	
-	private Element[] serializedFields(Fields[] fields, Object object)
+	private ArrayList<Element> serializedFields(Fields[] fields, Object object)
 	{
-		Element[] elements = new Element[field.length()];
+		ArrayList<Element> elements = new ArrayList<Element>();
 		for (int j=0; j<fields.length(); j++)
 		{
 			try
@@ -108,17 +110,31 @@ public class Serializer
 				objectElement.setAttribute("name",fields[i].toString());
 				objectElement.setAttribute("declaringClass", fields[i].getDeclaringClass().toString());
 				doc.getRootElement().getContent.(objectElemennt);
-				if(fields[i].isPrimitive()==true)
+				if(fields[j].isPrimitive()==true)
 				{
 						Element value= new Element("value");
-						value.setText(fields[i].get());
+						value.setText(fields[j].get());
 						objectElement.addContent();
+				}
+				else
+				{
+					for(int i=0; i<fields.length();i++)
+					{
+						Element ref= new Element("reference");
+						id=getID(Array, j);
+						
+						if(id!= -1)
+						{
+							ref.setText(fields[i].getID(object).toString());
+							objectElement.addContent();
+						}
+					}
 				}	
 
 			}
 			catch(Exception e)
 			{
-				
+				System.out.print(e);
 			}
 		}
 		return elements;
