@@ -1,6 +1,6 @@
 import org.jdom2.*;
 
-public class Receiver.java
+public class Receiver
 {
 	private static Deserializer deserializer = null; 
 	private static Visualizer viisualizer = null;

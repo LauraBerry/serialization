@@ -1,123 +1,131 @@
+import java.lang.reflect.*;
+import java.lang.Class;
 import java.util.*;
 
 public class ObjectCreator
 {
-	private String clName;
-	Scanner darkly = new Scanner(System.in);
-	Serializer forSerial= new Serializer;
-	
-	public void ObjectCreator()
+	private String className;
+	private Scanner darkly;
+	private Class clName = null;
+
+	public ObjectCreator()
 	{
-		System.out.println("Please enter the name of the class you would like to use: ");
-		clName=darkly.nextLine();
-		Class mainClass=Class.forName(clName);
-		System.out.println("what would you like to do?\n 1)create a simple object\n 2)create a collection of Objects\n 3) disconnect\n 4) object refrencing another object\n5) an object with an array of primitives\n6) an object with an array of object refrences");
-		String userInput=darkly.nextLine();
-		forSerial.serialize(userInput, mainClass)
-	}
-	
-	public Object CreateObject(String userInput, Class className)
-	{
-		Object object = null;
-		if(userInput.toInteger()==1)
-		{
-			object= createSimpleObject(className);
-		}
-		else if (userInput.toInteger()==2)
-		{
-			object=createObjectCollectionObject();
-			break;
-		}
-		else if (userInput.toInteger()==3)
-		{
-			Sender.connected=false;
-			break;
-		}
-		/*else if (userInput.toInteger()==4)
-		{
-			object=createObjectRefrenceObject();
-			break;
-		}
-		else if (userInput.toInteger()==5)
-		{
-			object=createObjectArrayPrimitive();
-			break;
-		}
-		else if (userInput.toInteger()==6)
-		{
-			object=createObjectArrayObject();
-			break;
-		}
-		return object;
-	}*/
-	
-	private Object createSimpleObject(Object object)
-	{
-		Class className=object.getDeclaringClass();
-		Field[] fields= className.getDeclaredFields();
-		for(int i=0; i<fields.length(); i++)
-		{
-			if(!fields[i].isAccessible())
-			{
-				fields[i].setAccessible(true);
-			}
-			if(fields.getType.isPrimitive())
-			{
-				if(fields[i].getType().getSimpleName() == "Integer")
-				{
-					int fieldType=darkly.nextInt();
-					fields[i].set(object, fieldType);
-				}
-				else if(fields[i].getType().getSimpleName() == "String")
-				{
-					String fieldType=darkly.nextLine();
-					fields[i].set(object, fieldType);
-				}
-				else if(fields[i].getType().getSimpleName() == "Byte")
-				{
-					byte fieldType=darkly.nextByte();
-					fields[i].set(object, fieldType);
-				}
-				else if(fields[i].getType().getSimpleName() == "Boolean")
-				{
-					boolean fieldType=darkly.nextLine();
-					fields[i].set(object, fieldType);
-				}
-				else if(fields[i].getType().getSimpleName() == "Short")
-				{
-					short fieldType=darkly.nextShort();
-					fields[i].set(object, fieldType);
-				}
-				else if(fields[i].getType().getSimpleName() == "Long")
-				{
-					long fieldType=darkly.nextLong();
-					fields[i].set(object, fieldType);
-				}
-				else if(fields[i].getType().getSimpleName() == "Float")
-				{
-					float fieldType=darkly.nextFloat();
-					fields[i].set(object, fieldType);
-				}
-				else if(fields[i].getType().getSimpleName() == "Double")
-				{
-					double fieldType=darkly.nextDouble();
-					fields[i].set(object, fieldType);
-				}
-			}
-		}
-		//return object
-	}
-	
-	private ObjectCollectionObject createObjectsCollectionObject(Object object)
-	{
+		darkly = new Scanner(System.in);
+		System.out.println("what would you like to do?");
+		System.out.println("\t1) create an object");
+		System.out.println("\t2) object refrencing another object");
+		System.out.println("\t3) object that contains an array of primities");
+		System.out.println("\t4) object containing an array of object refrences");
+		System.out.println("\t5) object collect");
+		System.out.println("\t6) disconnect");
 		
-		System.out.println("how large would you like the collection of objects to be?");
-		int collectionSize= darkly.nextLine().toInteger();
-		Object[] list = new Object[collectionSize];
-		for (int i=0; i< collectionSize; i++)
-		{
-			list[i]=createObject();
-		}
-		//return Object;
+		int decision= darkly.nextInt();
 	}
+	
+	public Object createObject()
+	{	
+		Object object = null;
+		try
+		{
+			clName = Class.forName(className);
+			object = clName.newInstance();
+			object = setFields(object);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+
+		return object;
+	}
+	
+	private Object setFields(Object obj)
+	{
+		Field[] fields = clName.getDeclaredFields();
+		for(int f=0;f<fields.length;f++)
+		{
+			if (!fields[f].isAccessible()) {
+				fields[f].setAccessible(true); }
+			if(fields[f].getType().isPrimitive())
+			{
+				Object fieldType = fields[f].getType();
+				System.out.print("Set the value of the "+fields[f].getType().getSimpleName()+" named "+fields[f].getName()+" : ");
+				try
+				{
+				if(fields[f].getType().getSimpleName() == "Integer") {
+					int value = darkly.nextInt();
+					fields[f].set(obj,value); }
+				else if(fields[f].getType().getSimpleName() == "String") {
+					String value = darkly.nextLine();
+					fields[f].set(obj,value); }
+				else if(fields[f].getType().getSimpleName() == "Boolean") {
+					boolean value = darkly.nextBoolean();
+					fields[f].set(obj,value); }
+				else if(fields[f].getType().getSimpleName() == "Double") {
+					double value = darkly.nextDouble();
+					fields[f].set(obj,value); }
+				else if(fields[f].getType().getSimpleName() == "Float") {
+					float value = darkly.nextFloat();
+					fields[f].set(obj,value); }
+				else if(fields[f].getType().getSimpleName() == "Long") {
+					long value = darkly.nextLong();
+					fields[f].set(obj,value); }
+				else if(fields[f].getType().getSimpleName() == "Short") {
+					short value = darkly.nextShort();
+					fields[f].set(obj,value); }
+				else if(fields[f].getType().getSimpleName() == "Byte") {
+					byte value = darkly.nextByte();
+					fields[f].set(obj,value); }
+				}
+				catch(Exception e)
+				{
+					System.out.println(e);
+				}
+			}
+		}
+		return obj;
+	}
+
+	private SimpleObject createSimpleObject()
+	{
+		System.out.println("please enter a value for the field: ");
+		int a = darkly.nextInt();
+		System.out.println("please enter another value for the field: ");
+		int b = darkly.nextInt();
+		
+		return SimpleObject(a,b)
+	}
+	
+	private refrencingObjects objectRefrenceObject()
+	{
+		return refrencingObjects();
+	}
+	
+	private Class arrayObjectPrimitive()
+	{
+		System.out.println("how big would you like the array to be?");
+		int a = darkly.nextInt();
+		return arrayPrimitive(a);
+	}
+	
+	private Class arrayObjectRefs()
+	{
+		System.out.println("how big would you like the array to be?");
+		int a = darkly.nextInt();
+		return
+	}
+	
+/*	private ObjectCollectionsObject createObjectsCollectionObject()
+	{
+		Vector<Object> list = new Vecotr<Object>();
+		
+		int collectionSize = GUI.getIntInput(.....);
+		
+		for(int i = 0; i < collectionSize; i++)
+		{
+			list.add(createObject());
+		}
+		
+		return new ObjectCollectionObject(list);
+	} */
 }

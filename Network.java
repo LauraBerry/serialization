@@ -1,66 +1,57 @@
 import java.net.Socket;
-import java.io.*;
+import java.io.OutputStream;
 
 public class Network
 {
 	private Socket socket = null;
 	private int port = 4321;
-	private String ip= "localhost";
+	private String ip = "localhost";
 	
-	public void send (String message)
-	{
-		if(socket==null)
-		{
-			connect(0);
-		}
-		if (socket !=null&& socket.isConnected())
-		{
-			
-		}
-	}
 	public void send(String message)
 	{
-		if(socket==null)
+		if(socket == null)
 		{
-			connect(0);
+			connect();
 		}
-		if (socket !=null&& socket.isConnected())
+		else if (socket.isConnected())
 		{
 			try
 			{
-				OutputStream outstream= socket.getOutputStream();
-				
-				outstream.write(message.getBytes());
-				outstream.flush();
+				OutputStream out = socket.getOutputStream();
+				out.write(message.getBytes());
+				out.flush();
 			}
-			catch (IOException e)
+			catch(Exception e)
 			{
-				System.out.println(e);
+				e.printStackTrace();
 			}
 		}
 		else
 		{
-			System.out.println("socket unavailable");
+			System.out.println("Socket unavailable");
 		}
 	}
+	
 	public void connect()
 	{
 		try
 		{
-			socket=new Socket(ip, port);
+			socket = new Socket(ip, port);
 		}
-		catch (IOException e)
+		catch(Exception e)
 		{
-			Sender.connected= false;
+			Sender.connected = false;
+			e.printStackTrace();
 		}
 	}
-	
-	public void setIP()
+
+	public void setIP(String newIP)
 	{
-		
+		ip = newIP;
 	}
-	public void setPort()
+
+	public void setPort(int newPort)
 	{
-		
+		port = newPort;
 	}
 }

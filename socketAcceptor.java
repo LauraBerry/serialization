@@ -9,7 +9,7 @@ public class socketAcceptor
 	private int socketTimeoutDuration= 2000;
 	private final char END_OF_STREAM= (char)-1;
 	
-	public SocketAcceptor()
+	public void SocketAcceptor()
 	{
 		createServerSocket(4321);//or pass paramiter
 	}
@@ -28,7 +28,7 @@ public class socketAcceptor
 	
 	public string getMessage()
 	{
-		String message = "";
+		StringBuilder message = new StringBuilder();
 		bolean reading = true; 
 		boolean socketClosed= false;
 		
@@ -41,7 +41,7 @@ public class socketAcceptor
 				
 				while((dataByte=(char)socket.getInputStream().read())!= END_OF_STREAM)
 				{
-					message += Character.toString(dataByte);
+					message.append(dataByte);
 				}
 				
 				socketClosed = dataByte == END_OF_STREAM;
@@ -64,10 +64,10 @@ public class socketAcceptor
 		{
 			system.out();
 		}
-		return message;
+		return message.toString();
 	}
 	
-	public void accept connection()
+	public void acceptConnection()
 	{
 		try
 		{

@@ -1,51 +1,59 @@
-import java.util.*;
-import java.io.*;
+// This is meant to be a skeleton of the Sender class for assignment 3
+import java.lang.reflect.*;
+import java.lang.Class;
+import java.util.Arrays;
+import java.util.ArrayList;
+
+import org.jdom2.Element;
+import org.jdom2.Document;
+import org.jdom2.Attribute;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 public class Sender
 {
-	private static Network network= null;
-	private static Serializer serializer= null;
-	private static ObjectCreator objCreator=null; 
+	private static Network networkConnection = null;
+	private static Serializer serializer = null;
+	private static ObjectCreator objCreator = null;
 	
-	private static boolean connected;
+	public static boolean connected;
 	
 	public static void main(String[] args)
 	{
 		initialize(args);
+		Object obj = objCreator.createObject();
+
 		while(connected)
-		{
-			Object obj= objCreator.createObject();
-			
+		{	
 			if(!connected)
 			{
 				continue;
 			}
-			Document doc= serializer.serialize(obj);
-			String XMLString = XMLtoString(doc);
-
-			network.send(XMLString);
+			
+			Document doc = serializer.serialize(obj);
+			String xmlString = XMLtoString(doc);
+			
+			networkConnection.send(xmlString);
 		}
-		exit();
 	}
 	
 	public static void initialize(String[] args)
 	{
-		connected=true;
-		network= new Network();
-		serializer= new Serializer();
+		connected = true;
+		networkConnection = new Network();
+		serializer = new Serializer();
 		objCreator = new ObjectCreator();
 		
-		if (args.length()==2)
+		if(args.length == 2)
 		{
-			network.setIP(args[0]);
-			network.setPort(Integer.valueOf(args[1]));
+			networkConnection.setIP(args[0]);
+			networkConnection.setPort(Integer.valueOf(args[1]));
 		}
 	}
 	
 	public static String XMLtoString(Document doc)
 	{
-		XMLOutputter xmlOutput = new XMLOutputter();
-		return xmlOutput.outputString(doc);
+		XMLOutputter outString = new XMLOutputter();
+		return outString.outputString(doc);
 	}
-	
 }
