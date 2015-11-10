@@ -112,7 +112,7 @@ public class ObjectCreator
 	{
 		System.out.println("how big would you like the array to be?");
 		int a = darkly.nextInt();
-		return
+		return arrayObjectRef(a);
 	}
 	
 /*	private ObjectCollectionsObject createObjectsCollectionObject()
