@@ -20,6 +20,31 @@ public class ObjectCreator
 		System.out.println("\t6) disconnect");
 		
 		int decision= darkly.nextInt();
+		if(decision==1)
+		{
+			simpleObject obj= createSimpleObject();	
+		}
+		else if(decision==2)
+		{
+			refrencingObjects obj = objectRefrenceObject();
+		}
+		else if(decision==3)
+		{
+			arrayPrimitive obj=arrayObjectPrimitive();
+		}
+		else if(decision==4)
+		{
+			arrayObjectRef obj = arrayObjectRefs();
+		}
+		else if (decision==5)
+		{
+			System.out.println("create object collection");
+		}
+		else if (decision==6)
+		{
+			System.out.println("disconnecting");
+			Sender.connected=false;
+		}
 	}
 	
 	public Object createObject()
@@ -86,33 +111,33 @@ public class ObjectCreator
 		return obj;
 	}
 
-	private SimpleObject createSimpleObject()
+	private simpleObject createSimpleObject()
 	{
 		System.out.println("please enter a value for the field: ");
 		int a = darkly.nextInt();
 		System.out.println("please enter another value for the field: ");
 		int b = darkly.nextInt();
 		
-		return SimpleObject(a,b)
+		return simpleObject(a,b)
 	}
 	
 	private refrencingObjects objectRefrenceObject()
 	{
-		return refrencingObjects();
+		return refrencingObjects.create();
 	}
 	
-	private Class arrayObjectPrimitive()
+	private arrayPrimitive arrayObjectPrimitive()
 	{
 		System.out.println("how big would you like the array to be?");
 		int a = darkly.nextInt();
-		return arrayPrimitive(a);
+		return arrayPrimitive.create(a);
 	}
 	
-	private Class arrayObjectRefs()
+	private arrayObjectRef arrayObjectRefs()
 	{
 		System.out.println("how big would you like the array to be?");
 		int a = darkly.nextInt();
-		return arrayObjectRef(a);
+		return arrayObjectRef().create(a);
 	}
 	
 /*	private ObjectCollectionsObject createObjectsCollectionObject()

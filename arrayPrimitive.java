@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class arrayPrimitive(int a)
+public class arrayPrimitive()
 {
 	private Scanner darkly=new Scanner(System.in);
 	public array;
@@ -14,7 +14,7 @@ public class arrayPrimitive(int a)
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
-				a[i]=darkly.nextInt();
+				array[i]=darkly.nextInt();
 			}	
 		}
 		else if(answer.equalsIgnoreCase("Double"))
@@ -23,25 +23,25 @@ public class arrayPrimitive(int a)
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
-				a[i]=darkly.nextDouble();
+				array[i]=darkly.nextDouble();
 			}	
 		}
 		else if(answer.equalsIgnoreCase("boolean")||answer.equalsIgnoreCase("bool"))
 		{
-			double[] array = new double[a];
+			boolean [] array = new boolean[a];
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
-				a[i]=darkly.nextBoolean();
+				array[i]=darkly.nextBoolean();
 			}	
 		}
 		else if(answer.equalsIgnoreCase("string"))
 		{
-			double[] array = new double[a];
+			String[] array = new String[a];
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
-				a[i]=darkly.nextLine();
+				array[i]=darkly.nextLine();
 			}	
 		}
 		else if (answer.equalsIgnoreCase("float"))
@@ -50,7 +50,7 @@ public class arrayPrimitive(int a)
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
-				a[i]=darkly.nextFloat();
+				array[i]=darkly.nextFloat();
 			}	
 		}
 		else if (answer.equalsIgnoreCase("long"))
@@ -59,7 +59,7 @@ public class arrayPrimitive(int a)
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
-				a[i]=darkly.nextLong();
+				array[i]=darkly.nextLong();
 			}	
 		}
 		else if (answer.equalsIgnoreCase("short"))
@@ -68,7 +68,7 @@ public class arrayPrimitive(int a)
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
-				a[i]=darkly.nextShort();
+				array[i]=darkly.nextShort();
 			}	
 		}
 		else if (answer.equalsIgnoreCase("byte"))
@@ -77,7 +77,7 @@ public class arrayPrimitive(int a)
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
-				a[i]=darkly.nextByte();
+				array[i]=darkly.nextByte();
 			}	
 		}
 		else
