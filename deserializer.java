@@ -105,6 +105,87 @@ public class deserializer
 		{
 			Element objElements = (Element) objs.git(i);
 			Object instanceOf = table.get(objElements.getAttributeValue("id"));
+			List fields = objElements.getChildrent();
+			if(!instanceOf.getClass().isArray())
+			{
+				for (int j=0; j<fields.size(); j++)
+				{
+					Element fieldElement= (Element) fields.get(j);
+					//find the declaring class
+					/*
+					String declaringClass = fields.getAttributeValue("declaringClass");
+					Class declClass = class.forName(declaringClass);
+					
+					String fieldNames=fields.getAttributeValue("name");
+					Field field=declClass.getDeclaredField(fieldName);
+					 if (!Modifier.isPublic(field.getModifiers()))
+					 {
+						 field.setAccessible(true);
+					 }*/
+				}
+			}
+			else
+			{
+				Class component = instanceOf.getClass().getComponentType();
+				for (int j=0; j<fields.size(); j++)
+				{
+					Array.set(instance, j,deserializeVal(Element)fields.get(j), component, a);
+				}
+			}
+		}
+	}
+	public Object deserializeVal (Element elm, Class cl, Map a) throws Exception
+	{
+		String elemType= elm.getName();
+		if (elemType.equals("null"))
+		{
+			return null;
+		}
+		else if (elemType.equalsIgnoreCase("refrence"))
+		{
+			return a.get(elm.getText());
+		}
+		else
+		{
+			if(cl.equals(boolean.class))
+			{
+				if(elm.getText().equals("true"))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else if (cl.equals(short.class))
+			{
+				return Short.valueOf(elm.getText());
+			}
+			else if (cl.equals(byte.class))
+			{
+				return Byte.valueOf(elm.getText());
+			}
+			else if (cl.equals(long.class))
+			{
+				return Long.valueOf(elm.getText());
+			}
+			else if (cl.equals(double.class))
+			{
+				return BDouble.valueOf(elm.getText());
+			}
+			else if (cl.equals(float.class))
+			{
+				return Float.valueOf(elm.getText());
+			}
+			else if (cl.equals(String.class))
+			{
+				return String.valueOf(elm.getText());
+			}
+			else 
+			{
+				return Character.valueOf(elm.getText());
+			}
 		}
 	}
 }
