@@ -75,17 +75,36 @@ public class deserializer
 		return table.get("0");
 	}
 	
-	public void instantiate(HashMap a, List objs)
+	public void instantiate(HashMap a, List objs) throws Exception
 	{
 		for (int i=0; i<objs.size();i++)
 		{
 			Element objElement= (Element) objs.get(i);
 			Class clName= Class.forName(objElements.getAttributeValue("class"));
-			
+			Object instance;
+			if(!clName.isArray())
+			{
+				Constructor cons= clName.getDeclaredConstructor(null);//no args
+				if(!mods.isPublic(cons.getModifiers())
+				{
+					cons.setAccessible(true); 
+				}
+				instance = cons.newInstance();
+			}
+			else 
+			{
+				instance=Array.newInstance(clName.getComponentType(), Integer.parseInt(objElement.getAttributeValue("length"));
+				a.put(objElement.getAttributeValue("id"),instanceOf);
+			}
 		}
 	}
 	
 	public void assignValues(HashMap a, List objs)
 	{
+		for (int i=0; i<objs.size(); i++)
+		{
+			Element objElements = (Element) objs.git(i);
+			Object instanceOf = table.get(objElements.getAttributeValue("id"));
+		}
 	}
 }
