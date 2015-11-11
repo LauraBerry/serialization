@@ -87,7 +87,8 @@ public class ObjectCreator
 	{
 		System.out.println("how big would you like the array to be?");
 		int a = darkly.nextInt();
-		return new arrayPrimitive.create(a);
+		arrayPrimitive name = new arrayPrimitive();
+		return name.create(a);
 	}
 	
 	private arrayObjectRef arrayObjectRefs()

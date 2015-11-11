@@ -38,7 +38,7 @@ public class Visualizer
 				}
 				else
 				{
-					System.out.print("[");
+					System.out.print(" [");
 					for (int i=0; i<obj.length(); i++)
 					{
 						System.out.print(obj[i]);
