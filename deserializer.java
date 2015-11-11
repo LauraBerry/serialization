@@ -1,6 +1,7 @@
 import java.lang.*;
 import java.jdom2.*;
 import java.util.*;
+import java.io.*;
 
 public class deserializer
 {
@@ -49,26 +50,42 @@ public class deserializer
 			Object obj= referenceMap.get(objectElement.getAttribute("id").getIntValue());
 			if(tmpClass.isArray)
 			{
-				setArray(obj, tmpClass, objectElement); 
+				//setArray(obj, tmpClass, objectElement); 
 			}
 			else
 			{
 				List<Element> fieldElements=objectElement.getChildren("fields");
 				for(Element fieldElement: fieldElements)
 				{
-					setField(obj, tmpClass, fieldElement);
+					
+					//setField(obj, tmpClass, fieldElement);
 				}
 			}
 		}
 	}
 	
-	public void setArray(Object obj, Class tmpClass, Element fieldElement)
+	public Object subDeserializer(Document doc)
 	{
-		//DO A THING
+		List objects = doc.getRootElement().getChildren();
+		HashMap table= new HashMap();
+		
+		instantiate(table, objects);
+		assignValues(table, objects);
+		
+		return table.get("0");
 	}
 	
-	public void setField(Object obj, Class tmpClass, Element fieldElement)
+	public void instantiate(HashMap a, List objs)
 	{
-		//DO A THING
+		for (int i=0; i<objs.size();i++)
+		{
+			Element objElement= (Element) objs.get(i);
+			Class clName= Class.forName(objElements.getAttributeValue("class"));
+			
+		}
+	}
+	
+	public void assignValues(HashMap a, List objs)
+	{
 	}
 }
