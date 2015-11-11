@@ -95,7 +95,8 @@ public class ObjectCreator
 	{
 		System.out.println("how big would you like the array to be?");
 		int a = darkly.nextInt();
-		return new arrayObjectRef().create(a);
+		arrayObjectRef name = arrayObjectRef();
+		return name.create(a);
 	}
 	
 	/*private ObjectCollectionsObject createObjectsCollectionObject()
