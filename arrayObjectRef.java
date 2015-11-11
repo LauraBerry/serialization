@@ -13,8 +13,10 @@ public class arrayObjectRef()
 			int b = darkly.nextInt();
 			System.out.println("please enter another value for the field: ");
 			int c = darkly.nextInt();
-			 
-			 array[i]=simpleObject(b,c);
+			 simpleObject name= new simpleObject();
+			name.field1=b;
+			name.field2=c;
+			 array[i]=name;
 		}
 	}
 }

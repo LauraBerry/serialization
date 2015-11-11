@@ -63,62 +63,19 @@ public class ObjectCreator
 
 		return object;
 	}
-	
-	private Object setFields(Object obj)
-	{
-		Field[] fields = clName.getDeclaredFields();
-		for(int f=0;f<fields.length;f++)
-		{
-			if (!fields[f].isAccessible()) {
-				fields[f].setAccessible(true); }
-			if(fields[f].getType().isPrimitive())
-			{
-				Object fieldType = fields[f].getType();
-				System.out.print("Set the value of the "+fields[f].getType().getSimpleName()+" named "+fields[f].getName()+" : ");
-				try
-				{
-				if(fields[f].getType().getSimpleName() == "Integer") {
-					int value = darkly.nextInt();
-					fields[f].set(obj,value); }
-				else if(fields[f].getType().getSimpleName() == "String") {
-					String value = darkly.nextLine();
-					fields[f].set(obj,value); }
-				else if(fields[f].getType().getSimpleName() == "Boolean") {
-					boolean value = darkly.nextBoolean();
-					fields[f].set(obj,value); }
-				else if(fields[f].getType().getSimpleName() == "Double") {
-					double value = darkly.nextDouble();
-					fields[f].set(obj,value); }
-				else if(fields[f].getType().getSimpleName() == "Float") {
-					float value = darkly.nextFloat();
-					fields[f].set(obj,value); }
-				else if(fields[f].getType().getSimpleName() == "Long") {
-					long value = darkly.nextLong();
-					fields[f].set(obj,value); }
-				else if(fields[f].getType().getSimpleName() == "Short") {
-					short value = darkly.nextShort();
-					fields[f].set(obj,value); }
-				else if(fields[f].getType().getSimpleName() == "Byte") {
-					byte value = darkly.nextByte();
-					fields[f].set(obj,value); }
-				}
-				catch(Exception e)
-				{
-					System.out.println(e);
-				}
-			}
-		}
-		return obj;
-	}
+
 
 	private simpleObject createSimpleObject()
 	{
-		System.out.println("please enter a value for the field: ");
+		System.out.println("please enter a integer value for the field: ");
 		int a = darkly.nextInt();
-		System.out.println("please enter another value for the field: ");
+		System.out.println("please enter another integer value for the field: ");
 		int b = darkly.nextInt();
+		simpleObject name= new simpleObject();
+		name.field1=a;
+		name.field2=b;
 		
-		return new simpleObject(a,b)
+		return name;
 	}
 	
 	private refrencingObjects objectRefrenceObject()

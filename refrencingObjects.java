@@ -9,6 +9,8 @@ public class refrencingObjects()
 		int a = darkly.nextInt();
 		System.out.println("please enter another value for the field: ");
 		int b = darkly.nextInt();
-		simpleObject refrence= new simpleObject(a,b);
+		simpleObject name= new simpleObject();
+		name.field1=a;
+		name.field2=b;
 	}
 }

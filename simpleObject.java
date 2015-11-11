@@ -1,5 +1,5 @@
-public class simpleObject(int a, int b)
+public class simpleObject
 {
-	int field1=a;
-	int field2=b;
+	public int field1;
+	public int field2;
 }
