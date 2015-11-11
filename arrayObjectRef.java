@@ -13,9 +13,9 @@ public class arrayObjectRef()
 			int b = darkly.nextInt();
 			System.out.println("please enter another value for the field: ");
 			int c = darkly.nextInt();
-			 simpleObject name= new simpleObject();
-			name.field1=b;
-			name.field2=c;
+			simpleObject name = new simpleObject();
+			name.field1()=a;
+			name.field2()=b;
 			 array[i]=name;
 		}
 	}

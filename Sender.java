@@ -1,14 +1,9 @@
 // This is meant to be a skeleton of the Sender class for assignment 3
 import java.lang.reflect.*;
-import java.lang.Class;
-import java.util.Arrays;
-import java.util.ArrayList;
+import java.lang.*;
+import java.util.*;
 
-import org.jdom2.Element;
-import org.jdom2.Document;
-import org.jdom2.Attribute;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
+import org.jdom2.*;
 
 public class Sender
 {

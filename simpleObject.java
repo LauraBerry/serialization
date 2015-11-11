@@ -1,5 +1,5 @@
 public class simpleObject
 {
-	public int field1;
-	public int field2;
+	int field1;
+	int field2;
 }
