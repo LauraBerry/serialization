@@ -118,37 +118,42 @@ public class ObjectCreator
 		System.out.println("please enter another value for the field: ");
 		int b = darkly.nextInt();
 		
-		return simpleObject(a,b)
+		return new simpleObject(a,b)
 	}
 	
 	private refrencingObjects objectRefrenceObject()
 	{
-		return refrencingObjects.create();
+		return new refrencingObjects.create();
 	}
 	
 	private arrayPrimitive arrayObjectPrimitive()
 	{
 		System.out.println("how big would you like the array to be?");
 		int a = darkly.nextInt();
-		return arrayPrimitive.create(a);
+		return new arrayPrimitive.create(a);
 	}
 	
 	private arrayObjectRef arrayObjectRefs()
 	{
 		System.out.println("how big would you like the array to be?");
 		int a = darkly.nextInt();
-		return arrayObjectRef().create(a);
+		return new arrayObjectRef().create(a);
 	}
 	
-/*	private ObjectCollectionsObject createObjectsCollectionObject()
+	/*private ObjectCollectionsObject createObjectsCollectionObject()
 	{
+		System.out.println("how big would you like the collection to be?");
 		Vector<Object> list = new Vecotr<Object>();
 		
-		int collectionSize = GUI.getIntInput(.....);
+		int collectionSize = darkly.nextInt();
 		
 		for(int i = 0; i < collectionSize; i++)
 		{
-			list.add(createObject());
+			System.out.println("please enter a value for the field: ");
+			int a = darkly.nextInt();
+			System.out.println("please enter another value for the field: ");
+			int b = darkly.nextInt();
+			list.add(simpleObject(a,b));
 		}
 		
 		return new ObjectCollectionObject(list);

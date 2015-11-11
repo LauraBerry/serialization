@@ -1,14 +1,6 @@
 import java.lang.reflect.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.ArrayList;
-
-import org.jdom2.Element;
-import org.jdom2.Document;
-import org.jdom2.Attribute;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
+import java.util.*;;
+import org.jdom2.*;
 
 public class Serializer
 {
@@ -16,14 +8,14 @@ public class Serializer
 	private Element root;
 	
 	private Integer referenceID = 0;
-	private HashMap<Object, Integer> referenceMap = new HashMap<Object, Integer>();
+	private IdentityHashMap map;
 	
 	private int currentElement = 0;
 	private ArrayList<Object> serializedObjects = new ArrayList<Object>();
 	
 	public Serializer()
 	{
-		
+		map= new IdentityHashMap();
 	}
 	
 	public Document serialize(Object object)
@@ -34,6 +26,7 @@ public class Serializer
 		}
 		else if(!serializedObjects.contains(object))
 		{
+			String mapSaize= Integer.toString(map.size());
 			serializedObjects.add(object);
 			
 			if(currentElement++ == 0)
@@ -42,9 +35,9 @@ public class Serializer
 				root = new Element("serialized");
 				doc.setRootElement(root);
 			}
-			Class<?> c = object.getClass();
+			Class c = object.getClass();
 			Integer id = getID(object);
-		
+			map.put(object, id)
 			Element objectElement = new Element("object");
 			objectElement.setAttribute(new Attribute("class", c.getName()));
 			objectElement.setAttribute(new Attribute("id", id.toString()));
@@ -72,8 +65,7 @@ public class Serializer
 						id = getID(Array.get(c,j));
 						if(id != -1)
 						{
-							ref.setText("");
-							// add each array element
+							ref.setText(Array.get(array, j);						// add each array element
 						}
 					}
 					for(int k = 0;k<Array.getLength(array);k++)
@@ -84,7 +76,7 @@ public class Serializer
 			}
 			else
 			{
-				Class<?> tmpClass = c;
+				Class tmpClass = c;
 				while(tmpClass != null)
 				{
 					Field[] fields = tmpClass.getDeclaredFields();
@@ -107,15 +99,31 @@ public class Serializer
 
 	private ArrayList<Element> serializeFields(Field[] fields, Object object)
 	{
+		Class currentClass=object.getClass();
 		ArrayList<Element> elements = new ArrayList<Element>();
 		for(Field f : fields)
 		{
 			try
 			{
 				if(!f.isAccessible())
+				{
 					f.setAccessible(true);
+				}
+				//recursion if the Field is not primitive
+				if(!f.isPrimitive())
+				{
+					Class fieldClass= f.getDeclaingClass();
+					if (fieldClass==currentClass)
+					{
+						continue;
+					}
+					else
+					{
+						Object obj= fieldClass.newInstance();
+						serialize(obj);
+					}
+				}
 				
-				// Add code here for recursion if the Field is not primitive
 			}
 			catch(Exception e)
 			{
