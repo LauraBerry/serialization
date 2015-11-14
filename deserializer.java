@@ -43,31 +43,6 @@ public class deserializer
 		return doc;
 	}
 	
-	/*public Object parseDocument (Document doc) throws Exception
-	{
-		List <Element> objectElements = doc.getRootElement().getChildren("object");	
-		instantiate(refrenceMap, objectElements);
-		/*for(Element objectElement: objectElements)
-		{
-			String className=objectElement.getAttributeValue("class");
-			Class<?> tmpClass= Class.forName(className);
-			Object obj= referenceMap.get(objectElement.getAttribute("id").getIntValue());
-			if(tmpClass.isArray())
-			{
-				//setArray(obj, tmpClass, objectElement); 
-			}
-			else
-			{
-				List<Element> fieldElements=objectElement.getChildren("fields");
-				for(Element fieldElement: fieldElements)
-				{
-					
-					//setField(obj, tmpClass, fieldElement);
-				}
-			}
-		}*/
-	}*/
-	
 	public Object subDeserializer(Document doc) throws Exception
 	{
 		List objects = doc.getRootElement().getChildren();
