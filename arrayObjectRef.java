@@ -1,12 +1,13 @@
+package assignment3;
 import java.lang.reflect.*;
 import java.util.*;
 
-public class arrayObjectRef()
+public class arrayObjectRef
 {
 	private Scanner darkly=new Scanner(System.in);
 	public void create(int a)
 	{
-		public simpleObject[] array = new simpleObject[a];
+		//public simpleObject[] array = new simpleObject[a];
 		for (int i=0; i<(a+1); i++)
 		{
 			System.out.println("please enter a value for the field: ");
@@ -14,9 +15,9 @@ public class arrayObjectRef()
 			System.out.println("please enter another value for the field: ");
 			int c = darkly.nextInt();
 			simpleObject name = new simpleObject();
-			name.field1()=a;
-			name.field2()=b;
-			 array[i]=name;
+			name.field1=a;
+			name.field2=b;
+			array[i]=name;
 		}
 	}
 }

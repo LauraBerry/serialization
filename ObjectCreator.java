@@ -1,3 +1,4 @@
+package assignment3;
 import java.lang.reflect.*;
 import java.lang.Class;
 import java.util.*;
@@ -118,8 +119,8 @@ public class ObjectCreator
 		System.out.println("please enter another value for the field: ");
 		int b = darkly.nextInt();
 		simpleObject name = new simpleObject();
-		name.field1()=a;
-		name.field2()=b;
+		name.field1=a;
+		name.field2=b;
 		return name;
 	}
 	

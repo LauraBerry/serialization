@@ -1,11 +1,12 @@
+package assignment3;
 import java.util.*;
 
-public class arrayPrimitive()
+public class arrayPrimitive
 {
 	private Scanner darkly=new Scanner(System.in);
-	public array;
 	public void create(int a)
 	{
+		
 		System.out.println("what type would you like the array to be?");
 		String answer=darkly.nextLine();
 		if(answer.equalsIgnoreCase("Int")||answer.equalsIgnoreCase("Integer"))
@@ -46,7 +47,7 @@ public class arrayPrimitive()
 		}
 		else if (answer.equalsIgnoreCase("float"))
 		{
-			double[] array = new double[a];
+			float[] array = new float[a];
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
@@ -55,7 +56,7 @@ public class arrayPrimitive()
 		}
 		else if (answer.equalsIgnoreCase("long"))
 		{
-			double[] array = new double[a];
+			long[] array = new long[a];
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
@@ -64,7 +65,7 @@ public class arrayPrimitive()
 		}
 		else if (answer.equalsIgnoreCase("short"))
 		{
-			double[] array = new double[a];
+			short[] array = new short[a];
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");
@@ -73,7 +74,7 @@ public class arrayPrimitive()
 		}
 		else if (answer.equalsIgnoreCase("byte"))
 		{
-			double[] array = new double[a];
+			byte[] array = new byte[a];
 			for(int i=0; i<(a+1); i++)							//a+1 because i'm assuming the user doesn't know arrays are zero indexed
 			{
 				System.out.println("what would you like this element of the array to be? ");

@@ -1,3 +1,4 @@
+package assignment3;
 import java.lang.*;
 import java.jdom2.*;
 import java.util.*;
@@ -24,7 +25,7 @@ public class deserializer
 	}
 	public Document stringToDoc(String a)
 	{
-		Document doc;
+		Document doc=null;
 		
 		try
 		{
@@ -40,21 +41,21 @@ public class deserializer
 		return doc;
 	}
 	
-	public Object parseDocument (Document doc) throws ClassNotFoundException, InstantiationException, IllegalAccessException, DataConversionException
+	public Object parseDocument (Document doc) throws Exception
 	{
 		List <Element> objectElements = doc.getRootElement.getChildren("object");	
 		for(Element objectElements: objectElement)
 		{
-			String ClassName=objectElement.getAttribute("class");
-			Class<?> tmpClass= Class.forName(className)
-			Object obj= referenceMap.get(objectElement.getAttribute("id").getIntValue());
-			if(tmpClass.isArray)
+			String className=objectElements.getAttribute("class");
+			Class<?> tmpClass= Class.forName(className);
+			Object obj= referenceMap.get(objectElements.getAttribute("id").getIntValue());
+			if(tmpClass.isArray())
 			{
 				//setArray(obj, tmpClass, objectElement); 
 			}
 			else
 			{
-				List<Element> fieldElements=objectElement.getChildren("fields");
+				List<Element> fieldElements=objectElements.getChildren("fields");
 				for(Element fieldElement: fieldElements)
 				{
 					
@@ -85,7 +86,7 @@ public class deserializer
 			if(!clName.isArray())
 			{
 				Constructor cons= clName.getDeclaredConstructor(null);//no args
-				if(!mods.isPublic(cons.getModifiers())
+				if(!cons.isPublic(cons.getModifiers()))
 				{
 					cons.setAccessible(true); 
 				}
@@ -93,7 +94,7 @@ public class deserializer
 			}
 			else 
 			{
-				instance=Array.newInstance(clName.getComponentType(), Integer.parseInt(objElement.getAttributeValue("length"));
+				instance=Array.newInstance(clName.getComponentType(), Integer.parseInt(objElement.getAttributeValue("length")));
 				a.put(objElement.getAttributeValue("id"),instanceOf);
 			}
 		}
@@ -129,7 +130,7 @@ public class deserializer
 				Class component = instanceOf.getClass().getComponentType();
 				for (int j=0; j<fields.size(); j++)
 				{
-					Array.set(instance, j,deserializeVal(Element)fields.get(j), component, a);
+					Array.set(instance, j,deserializeVal(Element),fields.get(j), component, a);
 				}
 			}
 		}

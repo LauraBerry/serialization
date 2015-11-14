@@ -1,5 +1,6 @@
+package assignment3;
 import java.lang.reflect.*;
-import java.util.*;;
+import java.util.*;
 import org.jdom2.*;
 
 public class Serializer
@@ -29,7 +30,7 @@ public class Serializer
 		{
 			Class c = object.getClass();
 			Integer id = getID(object);
-			map.put(object, id)
+			map.put(object, id);
 			String mapSize= Integer.toString(map.size());
 			Element objectElement = new Element("object");
 			objectElement.setAttribute(new Attribute("class", c.getName()));
@@ -68,7 +69,7 @@ public class Serializer
 								id = getID(Array.get(c,j));
 								if(id != -1)
 								{
-									ref.setText(Array.get(array, j);						// add each array element
+									ref.setText(Array.get(array, j));						// add each array element
 								}
 							}
 							for(int k = 0;k<Array.getLength(array);k++)
@@ -101,12 +102,12 @@ public class Serializer
 				{
 					if(compType.isPrimitive())
 					{
-						objectElement.setAttribute("value", c[i]);
+						objectElement.setAttribute("value", c.getName());
 					}
 					else
 					{
 						//need to recurs this somehow
-						serialize(c[i].newInstance());
+						serialize(c);
 					}
 				}
 			}
@@ -135,7 +136,7 @@ public class Serializer
 				//recursion if the Field is not primitive
 				if(!f.isPrimitive())
 				{
-					Class fieldClass= f.getDeclaingClass();
+					Class fieldClass= f.getDeclaringClass();
 					if (fieldClass==currentClass)
 					{
 						continue;

@@ -1,3 +1,4 @@
+package assignment3;
 import java.net.Socket;
 import java.io.OutputStream;
 
@@ -6,7 +7,10 @@ public class Network
 	private Socket socket = null;
 	private int port = 4321;
 	private String ip = "localhost";
-	
+
+	public Network()
+	{ }
+
 	public void send(String message)
 	{
 		if(socket == null)
@@ -40,7 +44,7 @@ public class Network
 		}
 		catch(Exception e)
 		{
-			Sender.connected = false;
+			//Sender.connected = false;
 			e.printStackTrace();
 		}
 	}

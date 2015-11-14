@@ -1,17 +1,19 @@
+package assignment3;
 
+import java.util.*;
 
 public class Visualizer
 {
 	public void visualize(Object obj, boolean recursive)
 	{
 		//note: boolean is initialized as true
-		Class className=obj.getClass();
+		Class c=obj.getClass();
 		System.out.print ("\nClass name: ");
-		output(className);
+		output(c);
 		System.out.println("");
 		
 		Class[] temp;
-		if (obj.isArray())
+		if (c.isArray())
 		{
 			System.out.print("object is an array");
 			if(obj[i].isPrimitive())
@@ -32,14 +34,14 @@ public class Visualizer
 					for (int i=0; i<obj.length();i++)
 					{
 						Class tmp= obj.getDeclaringClass();
-						Object tmp2=tmp.getInstance();
+						Object tmp2=tmp.newInstance();
 						visualize(tmp2, recursive);
 					}
 				}
 				else
 				{
 					System.out.print(" [");
-					for (int i=0; i<obj.length(); i++)
+					for (int i=0; i<obj.getLength(); i++)
 					{
 						System.out.print(obj[i]);
 						System.out.print(", ");
@@ -51,29 +53,30 @@ public class Visualizer
 		else
 		{
 			System.out.println("Fields");
-			if(c.length==0)
+			Field[] f=c.getDeclaredFields();
+			if(f.getLength()==0)
 			{
 				System.out.println("		none");
 			}
 			else
 			{
-				for (int i=0; i<c.length; i++)
+				for (int i=0; i<f.getLength(); i++)
 				{
 					System.out.print(i+1);
 					System.out.print(")\n 	Field Name: ");
-					String fieldName=c[i].toString();
+					String fieldName=f[i].toString();
 					System.out.println(fieldName);
 					//types
-					Class fieldType=c[i].getType();
+					Class fieldType=f[i].getType();
 					System.out.print("		Field Type: ");
 					output(fieldType);
 					//value
-					Object value=getvalue(c[i],e);
+					Object value=f[i].getvalue();
 					System.out.print("		Field value: ");
 					String fieldValName=String.valueOf(value);
 					System.out.println(fieldValName);
 					//modifiers	
-					int modifiers=c[i].getModifiers();
+					int modifiers=f[i].getModifiers();
 					System.out.print("		Modifier: ");
 					String mods = Modifier.toString(modifiers);
 					System.out.println(mods);

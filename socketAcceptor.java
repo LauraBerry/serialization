@@ -1,3 +1,5 @@
+package assignment3;
+
 import java.io.*;
 import java.net.*;
 
@@ -26,10 +28,10 @@ public class socketAcceptor
 		}
 	}
 	
-	public string getMessage()
+	public String getMessage()
 	{
 		StringBuilder message = new StringBuilder();
-		bolean reading = true; 
+		boolean reading = true; 
 		boolean socketClosed= false;
 		
 		//can impliment such that connection is established and you are alwways listening or you can have a time out time
@@ -62,7 +64,7 @@ public class socketAcceptor
 		}
 		else
 		{
-			system.out();
+			System.out();
 		}
 		return message.toString();
 	}

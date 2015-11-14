@@ -1,14 +1,15 @@
+package assignment3;
 import org.jdom2.*;
 
 public class Receiver
 {
 	private static Deserializer deserializer = null; 
-	private static Visualizer viisualizer = null;
+	private static Visualizer visualizer = null;
 	private static SocketAcceptor socketAcceptor=null;
 	
 	public static boolean connected;
 	
-	public static boid main(String[] args)
+	public static void main(String[] args)
 	{
 		initialize(args);
 		

@@ -1,6 +1,7 @@
+package assignment3;
 import java.util.*;
 
-public class refrencingObjects()
+public class refrencingObjects
 {
 	private Scanner darkly=new Scanner(System.in);
 	public void create()
@@ -10,7 +11,7 @@ public class refrencingObjects()
 		System.out.println("please enter another value for the field: ");
 		int b = darkly.nextInt();
 		simpleObject name = new simpleObject();
-		name.field1()=a;
-		name.field2()=b;
+		name.field1=a;
+		name.field2=b;
 	}
 }
