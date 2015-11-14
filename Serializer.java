@@ -63,13 +63,13 @@ public class Serializer
 						}
 						else
 						{
-							for(int j = 0;j < Array.getLength(array);j++)
+							for(int j = 0; j< Array.getLength(array); j++)
 							{
 								Element ref = new Element("reference");
 								id = getID(Array.get(c,j));
 								if(id != -1)
 								{
-									ref.setText(Array.get(array, j));						// add each array element
+									ref.setText(Integer.toString(id));	// add each array element
 								}
 							}
 							for(int k = 0;k<Array.getLength(array);k++)
@@ -86,8 +86,9 @@ public class Serializer
 							Field[] fields = tmpClass.getDeclaredFields();
 							ArrayList<Element> fieldXML = serializeFields(fields, object);
 							for(Element element:fieldXML)
+							{
 								objectElement.addContent(element);
-							
+							}
 							tmpClass = tmpClass.getSuperclass();
 						}
 					}
@@ -134,20 +135,16 @@ public class Serializer
 					f.setAccessible(true);
 				}
 				//recursion if the Field is not primitive
-				if(!f.isPrimitive())
+				Class fieldClass= f.getDeclaringClass();
+				if (fieldClass==currentClass)
 				{
-					Class fieldClass= f.getDeclaringClass();
-					if (fieldClass==currentClass)
-					{
-						continue;
-					}
-					else
-					{
-						Object obj= fieldClass.newInstance();
-						serialize(obj);
-					}
+					continue;
 				}
-				
+				else
+				{
+					Object obj= fieldClass.newInstance();
+					serialize(obj);
+				}				
 			}
 			catch(Exception e)
 			{
@@ -161,11 +158,11 @@ public class Serializer
 	{
 		Integer id = referenceID;
 		
-		if(referenceMap.containsKey(object))
-			id = referenceMap.get(object);
+		if(map.containsKey(object))
+			id = (Integer) map.get(object);
 		else
 		{
-			referenceMap.put(object, id);
+			map.put(object, id);
 			referenceID++;
 		}
 		

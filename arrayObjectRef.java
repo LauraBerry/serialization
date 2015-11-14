@@ -5,18 +5,24 @@ import java.util.*;
 public class arrayObjectRef
 {
 	private Scanner darkly=new Scanner(System.in);
-	public void create(int a)
+	public simpleObject[] array;
+	
+	public arrayObjectRef(int size)
 	{
-		//public simpleObject[] array = new simpleObject[a];
-		for (int i=0; i<(a+1); i++)
+			array = new simpleObject[size];
+	}
+
+	public void create(int size)
+	{
+		for (int i=0; i<size; i++)
 		{
 			System.out.println("please enter a value for the field: ");
 			int b = darkly.nextInt();
 			System.out.println("please enter another value for the field: ");
 			int c = darkly.nextInt();
 			simpleObject name = new simpleObject();
-			name.field1=a;
-			name.field2=b;
+			name.field1=b;
+			name.field2=c;
 			array[i]=name;
 		}
 	}

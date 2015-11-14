@@ -126,25 +126,27 @@ public class ObjectCreator
 	
 	private refrencingObjects objectRefrenceObject()
 	{
-		refrencingObjects name = new refrencingObjects();
-		return name.create();
+		refrencingObjects jerry = new refrencingObjects(); 
+		jerry.create();
+		return jerry;
 	}
 	
 	private arrayPrimitive arrayObjectPrimitive()
 	{
 		System.out.println("how big would you like the array to be?");
 		int a = darkly.nextInt();
-		arrayPrimitive name = new arrayPrimitive();
-		
-		return name.create(a);
+		arrayPrimitive name = new arrayPrimitive(a);
+		name.create(a);
+		return name;
 	}
 	
 	private arrayObjectRef arrayObjectRefs()
 	{
 		System.out.println("how big would you like the array to be?");
 		int a = darkly.nextInt();
-		arrayObjectRef name = new arrayObjectRef();
-		return name.create(a);
+		arrayObjectRef name = new arrayObjectRef(a);
+		name.create(a);
+		return name;
 	}
 	
 	/*private ObjectCollectionsObject createObjectsCollectionObject()

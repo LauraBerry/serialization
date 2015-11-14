@@ -1,8 +1,10 @@
 package assignment3;
 import java.lang.*;
-import java.jdom2.*;
+import org.jdom2.*;
+import org.jdom2.input.*;
 import java.util.*;
 import java.io.*;
+import java.lang.reflect.*;
 
 public class deserializer
 {
@@ -15,7 +17,7 @@ public class deserializer
 		try
 		{
 			//initializeReferenceMap(doc);
-			obj=parseDocument(doc);
+			obj=subDeserializer(doc);
 		}
 		catch(Exception e)
 		{
@@ -41,31 +43,32 @@ public class deserializer
 		return doc;
 	}
 	
-	public Object parseDocument (Document doc) throws Exception
+	/*public Object parseDocument (Document doc) throws Exception
 	{
-		List <Element> objectElements = doc.getRootElement.getChildren("object");	
-		for(Element objectElements: objectElement)
+		List <Element> objectElements = doc.getRootElement().getChildren("object");	
+		instantiate(refrenceMap, objectElements);
+		/*for(Element objectElement: objectElements)
 		{
-			String className=objectElements.getAttribute("class");
+			String className=objectElement.getAttributeValue("class");
 			Class<?> tmpClass= Class.forName(className);
-			Object obj= referenceMap.get(objectElements.getAttribute("id").getIntValue());
+			Object obj= referenceMap.get(objectElement.getAttribute("id").getIntValue());
 			if(tmpClass.isArray())
 			{
 				//setArray(obj, tmpClass, objectElement); 
 			}
 			else
 			{
-				List<Element> fieldElements=objectElements.getChildren("fields");
+				List<Element> fieldElements=objectElement.getChildren("fields");
 				for(Element fieldElement: fieldElements)
 				{
 					
 					//setField(obj, tmpClass, fieldElement);
 				}
 			}
-		}
-	}
+		}*/
+	}*/
 	
-	public Object subDeserializer(Document doc)
+	public Object subDeserializer(Document doc) throws Exception
 	{
 		List objects = doc.getRootElement().getChildren();
 		HashMap table= new HashMap();
@@ -81,33 +84,33 @@ public class deserializer
 		for (int i=0; i<objs.size();i++)
 		{
 			Element objElement= (Element) objs.get(i);
-			Class clName= Class.forName(objElements.getAttributeValue("class"));
+			Class clName= Class.forName(objElement.getAttributeValue("class"));
 			Object instance;
 			if(!clName.isArray())
 			{
-				Constructor cons= clName.getDeclaredConstructor(null);//no args
-				if(!cons.isPublic(cons.getModifiers()))
+				Constructor cons= clName.getDeclaredConstructor();//no args
+				/*if(!cons.isPublic(cons.getModifiers()))
 				{
 					cons.setAccessible(true); 
-				}
+				}*/
 				instance = cons.newInstance();
 			}
 			else 
 			{
 				instance=Array.newInstance(clName.getComponentType(), Integer.parseInt(objElement.getAttributeValue("length")));
-				a.put(objElement.getAttributeValue("id"),instanceOf);
+				a.put(objElement.getAttributeValue("id"), instance);
 			}
 		}
 	}
 	
-	public void assignValues(HashMap a, List objs)
+	public void assignValues(HashMap a, List objs)throws Exception
 	{
 		for (int i=0; i<objs.size(); i++)
 		{
-			Element objElements = (Element) objs.git(i);
-			Object instanceOf = table.get(objElements.getAttributeValue("id"));
-			List fields = objElements.getChildrent();
-			if(!instanceOf.getClass().isArray())
+			Element objElements = (Element) objs.get(i);
+			Object instance = a.get(objElements.getAttributeValue("id"));
+			List fields = objElements.getChildren();
+			if(!instance.getClass().isArray())
 			{
 				for (int j=0; j<fields.size(); j++)
 				{
@@ -127,10 +130,10 @@ public class deserializer
 			}
 			else
 			{
-				Class component = instanceOf.getClass().getComponentType();
+				Class component = instance.getClass().getComponentType();
 				for (int j=0; j<fields.size(); j++)
 				{
-					Array.set(instance, j,deserializeVal(Element),fields.get(j), component, a);
+					Array.set(instance, j,deserializeVal((Element)fields.get(j), component, a));
 				}
 			}
 		}
@@ -173,7 +176,7 @@ public class deserializer
 			}
 			else if (cl.equals(double.class))
 			{
-				return BDouble.valueOf(elm.getText());
+				return Double.valueOf(elm.getText());
 			}
 			else if (cl.equals(float.class))
 			{
@@ -185,7 +188,7 @@ public class deserializer
 			}
 			else 
 			{
-				return Character.valueOf(elm.getText());
+				return Character.valueOf(elm.getText().charAt(0));
 			}
 		}
 	}

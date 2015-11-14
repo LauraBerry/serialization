@@ -1,11 +1,15 @@
 package assignment3;
 import org.jdom2.*;
+import java.lang.reflect.*;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
 public class Receiver
 {
-	private static Deserializer deserializer = null; 
+	private static deserializer deserialize = null; 
 	private static Visualizer visualizer = null;
-	private static SocketAcceptor socketAcceptor=null;
+	private static socketAcceptor socketAccept=null;
 	
 	public static boolean connected;
 	
@@ -13,25 +17,24 @@ public class Receiver
 	{
 		initialize(args);
 		
-		string message= socketAcceptor.getMessage();
+		String message= socketAccept.getMessage();
 		
-		Document doc = deserializer.stringToDoc(message);
-		Object obj = deserializer.deserialize();
+		Document doc = deserialize.stringToDoc(message);
+		Object obj = deserialize.deserialize(doc);
 		
 		visualizer.visualize(obj, true);
-		
 	}
 	
 	public static void initialize(String[] args)
 	{
 		connected=true;
-		socketAcceptor=new SocketAcceptor(4321);//need to make sure this can read from the command line too
-		deserializer= new Deserializer();
+		socketAccept=new socketAcceptor(4321);//Laura need to make sure this can read from the command line too
+		deserialize= new deserializer();
 		visualizer= new Visualizer();
 		
 		if(connected)
 		{
-			socketAcceptor.acceptConnection();
+			socketAccept.acceptConnection();
 		}
 	}
 }

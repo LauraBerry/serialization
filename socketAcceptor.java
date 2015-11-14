@@ -10,10 +10,10 @@ public class socketAcceptor
 	private Socket socket = null;
 	private int socketTimeoutDuration= 2000;
 	private final char END_OF_STREAM= (char)-1;
-	
-	public void SocketAcceptor()
+
+	public socketAcceptor(int a)
 	{
-		createServerSocket(4321);//or pass paramiter
+		createServerSocket(a);
 	}
 	
 	private void createServerSocket(int port)
@@ -60,11 +60,12 @@ public class socketAcceptor
 		}
 		if(socketClosed)
 		{
-			Reciever.connected= false;
+			//Laura need to deal with this
+			//Reciever.connected= false;
 		}
 		else
 		{
-			System.out();
+			System.out.println();
 		}
 		return message.toString();
 	}
@@ -74,7 +75,7 @@ public class socketAcceptor
 		try
 		{
 			socket = serverSocket.accept();
-			socket.setSoTimeout(socketTimeoutDruation);
+			socket.setSoTimeout(socketTimeoutDuration);
 		}
 		catch(Exception e)
 		{

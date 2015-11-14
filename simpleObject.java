@@ -2,6 +2,6 @@ package assignment3;
 
 public class simpleObject
 {
-	int field1;
-	int field2;
+	public int field1;
+	public int field2;
 }
