@@ -1,4 +1,3 @@
-package assignment3;
 import java.net.Socket;
 import java.io.OutputStream;
 

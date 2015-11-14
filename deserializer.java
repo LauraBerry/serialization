@@ -1,4 +1,3 @@
-package assignment3;
 import java.lang.*;
 import org.jdom2.*;
 import org.jdom2.input.*;

@@ -1,4 +1,3 @@
-package assignment3;
 import java.io.*;
 import java.lang.*;
 import java.lang.reflect.*;
@@ -6,7 +5,7 @@ import java.util.*;
 
 public class Visualizer
 {
-	public void visualize(Object obj, boolean recursive)
+	public void visualize(Object obj, boolean recursive) throws Exception
 	{
 		//note: boolean is initialized as true
 		Class c=obj.getClass();

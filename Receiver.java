@@ -1,4 +1,3 @@
-package assignment3;
 import org.jdom2.*;
 import java.lang.reflect.*;
 import java.util.*;
@@ -13,7 +12,7 @@ public class Receiver
 	
 	public static boolean connected;
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
 		initialize(args);
 		

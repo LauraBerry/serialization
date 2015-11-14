@@ -1,4 +1,3 @@
-package assignment3;
 import java.lang.reflect.*;
 import java.lang.Class;
 import java.util.*;
