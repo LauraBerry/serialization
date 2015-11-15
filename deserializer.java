@@ -68,10 +68,6 @@ public class deserializer
 			if(!clName.isArray())
 			{
 				Constructor cons= clName.getDeclaredConstructor();//no args
-				/*if(!cons.isPublic(cons.getModifiers()))
-				{
-					cons.setAccessible(true); 
-				}*/
 				instance = cons.newInstance();
 			}
 			else 
@@ -94,17 +90,6 @@ public class deserializer
 				for (int j=0; j<fields.size(); j++)
 				{
 					Element fieldElement= (Element) fields.get(j);
-					//find the declaring class
-					/*
-					String declaringClass = fields.getAttributeValue("declaringClass");
-					Class declClass = class.forName(declaringClass);
-					
-					String fieldNames=fields.getAttributeValue("name");
-					Field field=declClass.getDeclaredField(fieldName);
-					 if (!Modifier.isPublic(field.getModifiers()))
-					 {
-						 field.setAccessible(true);
-					 }*/
 				}
 			}
 			else
