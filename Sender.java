@@ -1,8 +1,11 @@
-import java.lang.reflect.*;
 import java.lang.*;
-import java.util.*;
 import org.jdom2.*;
+import org.jdom2.input.*;
 import org.jdom2.output.*;
+import java.util.*;
+import java.io.*;
+import java.lang.reflect.*;
+
 
 public class Sender
 {
@@ -12,7 +15,7 @@ public class Sender
 	
 	public static boolean connected;
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
 		initialize(args);
 		Object obj = objCreator.createObject();
@@ -25,6 +28,10 @@ public class Sender
 			}
 			
 			Document doc = serializer.serialize(obj, new Document(new Element("serialized")));
+			XMLOutputter outfile = new XMLOutputter();	
+			outfile.setFormat(Format.getPrettyFormat());
+			outfile.output(doc, new FileWriter("input.xml"));
+			System.out.println("File wriiten as input.xml");
 			String xmlString = XMLtoString(doc);
 			
 			networkConnection.send(xmlString);

@@ -22,7 +22,7 @@ public class deserializer
 		}
 		catch(Exception e)
 		{
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		return obj;
 	}
@@ -34,7 +34,7 @@ public class deserializer
 			SAXBuilder docBuilder = new SAXBuilder();
 			InputStream docStream = new ByteArrayInputStream(a.getBytes("UTF-8"));
 			doc=docBuilder.build(docStream);
-			XMLOutputter outfile = new XMLOutputter();	
+			XMLOutputter outfile = new XMLOutputter();
 			outfile.setFormat(Format.getPrettyFormat());
 			outfile.output(doc, new FileWriter("output.xml"));
 			System.out.println("File received as output.xml");

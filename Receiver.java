@@ -15,7 +15,6 @@ public class Receiver
 	public static void main(String[] args) throws Exception
 	{
 		initialize(args);
-		
 		String message= socketAccept.getMessage();
 		System.out.println("before deserialize");
 		Document doc = deserialize.stringToDoc(message);
@@ -31,10 +30,5 @@ public class Receiver
 		socketAccept=new socketAcceptor(4321);//Laura need to make sure this can read from the command line too
 		deserialize= new deserializer();
 		visualizer= new Visualizer();
-		
-		if(connected)
-		{
-			socketAccept.acceptConnection();
-		}
 	}
 }

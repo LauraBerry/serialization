@@ -1,9 +1,9 @@
-import java.net.Socket;
-import java.io.OutputStream;
+import java.net.*;
+import java.io.*;
 
 public class Network
 {
-	private Socket socket = null;
+	private ServerSocket server = null;
 	private int port = 4321;
 	private String ip = "localhost";
 
@@ -12,34 +12,17 @@ public class Network
 
 	public void send(String message)
 	{
-		if(socket == null)
-		{
-			connect();
-		}
-		else if (socket.isConnected())
-		{
-			try
-			{
-				OutputStream out = socket.getOutputStream();
-				out.write(message.getBytes());
-				out.flush();
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
-		else
-		{
-			System.out.println("Socket unavailable");
-		}
-	}
-	
-	public void connect()
-	{
 		try
 		{
-			socket = new Socket(ip, port);
+			server = new ServerSocket(port);
+			Socket receiver = server.accept();
+
+			OutputStream stream = receiver.getOutputStream();
+			stream.write(message.getBytes());
+			stream.flush();
+
+			server.close();
+			receiver.close();
 		}
 		catch(Exception e)
 		{
