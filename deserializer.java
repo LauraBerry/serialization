@@ -58,7 +58,7 @@ public class deserializer
 		return table.get("0");
 	}
 	
-	public void instantiate(HashMap a, List objs) throws Exception
+	public void instantiate(HashMap map, List objs) throws Exception
 	{
 		for (int i=0; i<objs.size();i++)
 		{
@@ -77,7 +77,7 @@ public class deserializer
 			else 
 			{
 				instance=Array.newInstance(clName.getComponentType(), Integer.parseInt(objElement.getAttributeValue("length")));
-				a.put(objElement.getAttributeValue("id"), instance);
+				map.put(objElement.getAttributeValue("id"), instance);
 			}
 		}
 	}
