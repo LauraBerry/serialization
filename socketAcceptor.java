@@ -33,37 +33,32 @@ public class socketAcceptor
 		boolean socketClosed= false;
 		
 		//can impliment such that connection is established and you are alwways listening or you can have a time out time
-		while(socket != null && socket.isConnected() && reading)
+		try
 		{
-			try
+			while(socket != null && socket.isConnected() && reading)
 			{
-				char dataByte; 
+					char dataByte; 
 				
-				while((dataByte=(char)socket.getInputStream().read())!= END_OF_STREAM)
-				{
-					message.append(dataByte);
-				}
+					while((dataByte=(char)socket.getInputStream().read())!= END_OF_STREAM)
+					{
+						message.append(dataByte);
+					}
 				
-				socketClosed = dataByte == END_OF_STREAM;
-				reading = false;
+					socketClosed = dataByte == END_OF_STREAM;
+					reading = false;
 			}
-			catch (SocketTimeoutException e)
+			if(socketClosed)
 			{
-				System.out.println(e);
-			}	
-			catch (IOException e)
+				serverSocket.close();
+			}
+			else
 			{
-				System.out.println(e);
+				System.out.println();
 			}
 		}
-		if(socketClosed)
+		catch(Exception e)
 		{
-			//Laura need to deal with this
-			//Reciever.connected= false;
-		}
-		else
-		{
-			System.out.println();
+			System.out.println(e);
 		}
 		return message.toString();
 	}

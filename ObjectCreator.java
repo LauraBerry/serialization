@@ -11,6 +11,12 @@ public class ObjectCreator
 	public ObjectCreator()
 	{
 		darkly = new Scanner(System.in);
+	}
+	
+	public Object createObject()
+	{	
+
+		Object obj = null;
 		System.out.println("what would you like to do?");
 		System.out.println("\t1) create an object");
 		System.out.println("\t2) object refrencing another object");
@@ -22,19 +28,19 @@ public class ObjectCreator
 		int decision= darkly.nextInt();
 		if(decision==1)
 		{
-			simpleObject obj= createSimpleObject();	
+			return createSimpleObject();	
 		}
 		else if(decision==2)
 		{
-			refrencingObjects obj = objectRefrenceObject();
+			return objectRefrenceObject();
 		}
 		else if(decision==3)
 		{
-			arrayPrimitive obj=arrayObjectPrimitive();
+			return arrayObjectPrimitive();
 		}
 		else if(decision==4)
 		{
-			arrayObjectRef obj = arrayObjectRefs();
+			return arrayObjectRefs();
 		}
 		else if (decision==5)
 		{
@@ -45,26 +51,10 @@ public class ObjectCreator
 			System.out.println("disconnecting");
 			Sender.connected=false;
 		}
+		return obj;
 	}
 	
-	public Object createObject()
-	{	
-		Object object = null;
-		try
-		{
-			clName = Class.forName(className);
-			object = clName.newInstance();
-			object = setFields(object);
-		}
-		catch(Exception e)
-		{
-			System.out.println(e);
-		}
-
-		return object;
-	}
-	
-	private Object setFields(Object obj)
+	/*private Object setFields(Object obj)
 	{
 		Field[] fields = clName.getDeclaredFields();
 		for(int f=0;f<fields.length;f++)
@@ -109,7 +99,7 @@ public class ObjectCreator
 			}
 		}
 		return obj;
-	}
+	}*/
 
 	private simpleObject createSimpleObject()
 	{

@@ -24,10 +24,13 @@ public class Sender
 				continue;
 			}
 			
-			Document doc = serializer.serialize(obj);
+			Document doc = serializer.serialize(obj, new Document(new Element("serialized")));
 			String xmlString = XMLtoString(doc);
 			
 			networkConnection.send(xmlString);
+
+			System.out.println("Sent document");
+			connected = false;
 		}
 	}
 	

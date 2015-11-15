@@ -17,10 +17,11 @@ public class Receiver
 		initialize(args);
 		
 		String message= socketAccept.getMessage();
-		
+		System.out.println("before deserialize");
 		Document doc = deserialize.stringToDoc(message);
+		System.out.println("doc created");
 		Object obj = deserialize.deserialize(doc);
-		
+		System.out.println("after deserialize");
 		visualizer.visualize(obj, true);
 	}
 	

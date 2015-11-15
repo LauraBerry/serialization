@@ -18,14 +18,14 @@ public class Serializer
 		map= new IdentityHashMap();
 	}
 	
-	public Document serialize(Object object)
+	public Document serialize(Object object,Document doc)
 	{
-		
+		/*
 		if(object == null)
 		{
-			//do something
+			return new Document(new Element("null"));
 		}
-		else 
+		else*/if(true) 
 		{
 			Class c = object.getClass();
 			Integer id = getID(object);
@@ -73,7 +73,7 @@ public class Serializer
 							}
 							for(int k = 0;k<Array.getLength(array);k++)
 							{
-								serialize(Array.get(array,k));
+								serialize(Array.get(array,k), doc);
 							}
 						}
 					}
@@ -83,7 +83,7 @@ public class Serializer
 						while(tmpClass != null)
 						{
 							Field[] fields = tmpClass.getDeclaredFields();
-							ArrayList<Element> fieldXML = serializeFields(fields, object);
+							ArrayList<Element> fieldXML = serializeFields(fields, object, doc);
 							for(Element element:fieldXML)
 							{
 								objectElement.addContent(element);
@@ -107,7 +107,7 @@ public class Serializer
 					else
 					{
 						//need to recurs this somehow
-						serialize(c);
+						serialize(c, doc);
 					}
 				}
 			}
@@ -121,7 +121,7 @@ public class Serializer
 		return doc;
 	}
 
-	private ArrayList<Element> serializeFields(Field[] fields, Object object)
+	private ArrayList<Element> serializeFields(Field[] fields, Object object, Document doc)
 	{
 		Class currentClass=object.getClass();
 		ArrayList<Element> elements = new ArrayList<Element>();
@@ -142,7 +142,7 @@ public class Serializer
 				else
 				{
 					Object obj= fieldClass.newInstance();
-					serialize(obj);
+					serialize(obj, doc);
 				}				
 			}
 			catch(Exception e)

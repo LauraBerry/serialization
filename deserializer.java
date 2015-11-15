@@ -1,9 +1,11 @@
 import java.lang.*;
 import org.jdom2.*;
 import org.jdom2.input.*;
+import org.jdom2.output.*;
 import java.util.*;
 import java.io.*;
 import java.lang.reflect.*;
+
 
 public class deserializer
 {
@@ -27,16 +29,19 @@ public class deserializer
 	public Document stringToDoc(String a)
 	{
 		Document doc=null;
-		
 		try
 		{
 			SAXBuilder docBuilder = new SAXBuilder();
 			InputStream docStream = new ByteArrayInputStream(a.getBytes("UTF-8"));
 			doc=docBuilder.build(docStream);
+			XMLOutputter outfile = new XMLOutputter();	
+			outfile.setFormat(Format.getPrettyFormat());
+			outfile.output(doc, new FileWriter("output.xml"));
+			System.out.println("File received as output.xml");
 		}
 		catch (Exception e)
 		{
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		
 		return doc;
