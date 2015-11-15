@@ -35,79 +35,49 @@ public class Serializer
 			objectElement.setAttribute(new Attribute("class", c.getName()));
 			objectElement.setAttribute(new Attribute("id", mapSize));
 			doc.getRootElement().addContent(objectElement);
-			//serializedObjects.add(object);
+			serializedObjects.add(object);
+
 			if(!c.isArray())
 			{
-				if(!serializedObjects.contains(object))
-				{
-					if(currentElement++ == 0)
+
+//				if(!serializedObjects.contains(object))
+//				{
+					Field[] fields = c.getDeclaredFields();
+					ArrayList<Element> fieldXML = serializeFields(fields, object, doc);
+					for(int i=0; i<fieldXML.size(); i++)
 					{
-						doc = new Document();
-						root = new Element("serialized");
-						doc.setRootElement(root);
+						objectElement.addContent(fieldXML.get(i));
 					}
-					if(c.isArray())
-					{
-						Object array = object;
-						objectElement.setAttribute(new Attribute("length", Integer.toString(Array.getLength(array))));
-						
-						if(c.getComponentType().isPrimitive())
-						{
-							for(int i = 0;i<Array.getLength(array);i++)
-							{
-								Element value = new Element("value");
-								value.setText(Array.get(c,i).toString());
-								objectElement.addContent(value);
-							}
-						}
-						else
-						{
-							for(int j = 0; j< Array.getLength(array); j++)
-							{
-								Element ref = new Element("reference");
-								id = getID(Array.get(c,j));
-								if(id != -1)
-								{
-									ref.setText(Integer.toString(id));	// add each array element
-								}
-							}
-							for(int k = 0;k<Array.getLength(array);k++)
-							{
-								serialize(Array.get(array,k), doc);
-							}
-						}
-					}
-					else
-					{
-						Class tmpClass = c;
-						while(tmpClass != null)
-						{
-							Field[] fields = tmpClass.getDeclaredFields();
-							ArrayList<Element> fieldXML = serializeFields(fields, object, doc);
-							for(Element element:fieldXML)
-							{
-								objectElement.addContent(element);
-							}
-							tmpClass = tmpClass.getSuperclass();
-						}
-					}
-				}
+//				}
 			}
 			else
 			{
-				Class compType=c.getComponentType();
-				int arraySize=Array.getLength(object);
-				objectElement.setAttribute("length", Integer.toString(arraySize));
-				for(int i=0; i<arraySize; i++)
+				Object array = object;
+				objectElement.setAttribute(new Attribute("length", Integer.toString(Array.getLength(array))));
+				
+				if(c.getComponentType().isPrimitive())
 				{
-					if(compType.isPrimitive())
+					for(int i = 0;i<Array.getLength(array);i++)
 					{
-						objectElement.setAttribute("value", c.getName());
+						Element value = new Element("value");
+						value.setText(Array.get(c,i).toString());
+						objectElement.addContent(value);
 					}
-					else
+				}
+				else
+				{
+					for(int j = 0; j< Array.getLength(array); j++)
 					{
-						//need to recurs this somehow
-						serialize(c, doc);
+						Element ref = new Element("reference");
+						id = getID(Array.get(c,j));
+						if(id != -1)
+						{
+							ref.setText(Integer.toString(id));	// add each array element
+						}
+					}
+					for(int k = 0;k<Array.getLength(array);k++)
+					{
+						serialize(Array.get(array,k), doc);
 					}
 				}
 			}
@@ -129,25 +99,26 @@ public class Serializer
 		{
 			try
 			{
-				if(!f.isAccessible())
+				if(!currentClass.isPrimitive())
 				{
-					f.setAccessible(true);
-				}
-				//recursion if the Field is not primitive
-				Class fieldClass= f.getDeclaringClass();
-				if (fieldClass==currentClass)
-				{
-					continue;
+					System.out.println("hello?");
+					// Field not primitive, is a reference to another object
 				}
 				else
 				{
-					Object obj= fieldClass.newInstance();
-					serialize(obj, doc);
-				}				
+					System.out.println("Here you are");
+					Element newField = new Element("field");
+					newField.setAttribute("name",f.getName());
+					newField.setAttribute("declaringclass",f.getDeclaringClass().getName());
+					Element newValue = new Element("value");
+					newValue.addContent(f.get(object).toString());
+					newField.addContent(newValue);
+					elements.add(newField);
+				}
 			}
 			catch(Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 		return elements;
